@@ -1,0 +1,38 @@
+type CanisterChange = record {
+  timestamp_nanos : nat64;
+  canister_version : nat64;
+  origin : CanisterChangeOrigin;
+  details : CanisterChangeDetails;
+};
+type CanisterChangeDetails = variant {
+  creation : CreationRecord;
+  code_deployment : CodeDeploymentRecord;
+  controllers_change : CreationRecord;
+  code_uninstall;
+};
+type CanisterChangeOrigin = variant {
+  from_user : FromUserRecord;
+  from_canister : FromCanisterRecord;
+};
+type CanisterInfoRequest = record {
+  canister_id : principal;
+  num_requested_changes : opt nat64;
+};
+type CanisterInfoResponse = record {
+  controllers : vec principal;
+  module_hash : opt blob;
+  recent_changes : vec CanisterChange;
+  total_num_changes : nat64;
+};
+type CodeDeploymentMode = variant { reinstall; upgrade; install };
+type CodeDeploymentRecord = record {
+  mode : CodeDeploymentMode;
+  module_hash : blob;
+};
+type CreationRecord = record { controllers : vec principal };
+type FromCanisterRecord = record {
+  canister_version : opt nat64;
+  canister_id : principal;
+};
+type FromUserRecord = record { user_id : principal };
+service : { canister_history : (CanisterInfoRequest) -> (CanisterInfoResponse) }
