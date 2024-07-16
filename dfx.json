@@ -3,7 +3,12 @@
     "canister_history": {
       "candid": "src/canister_history/canister_history.did",
       "package": "canister_history",
-      "type": "rust"
+      "type": "rust",
+      "pullable": {
+        "dependencies": [],
+        "wasm_url": "https://github.com/vincent-dfinity/canister_history/releases/latest/download/canister_history.wasm",
+        "init_guide": "No init argument."
+      }
     }
   },
   "defaults": {
