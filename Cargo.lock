@@ -94,7 +94,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "canister_history_backend"
+name = "canister_history"
 version = "0.1.0"
 dependencies = [
  "candid",

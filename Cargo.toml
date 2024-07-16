@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "src/canister_history_backend"
+    "src/canister_history"
 ]
 resolver = "2"

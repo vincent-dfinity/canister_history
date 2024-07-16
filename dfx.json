@@ -1,8 +1,8 @@
 {
   "canisters": {
-    "canister_history_backend": {
-      "candid": "src/canister_history_backend/canister_history_backend.did",
-      "package": "canister_history_backend",
+    "canister_history": {
+      "candid": "src/canister_history/canister_history.did",
+      "package": "canister_history",
       "type": "rust"
     }
   },
