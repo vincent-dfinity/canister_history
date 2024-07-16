@@ -21,6 +21,10 @@ jobs:
           echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
           source "$HOME/.local/share/dfx/env"
           dfx cache install
+  
+      - name: Install wasm target
+        run: |
+          rustup target add wasm32-unknown-unknown
 
       - name: Build canister
         run: |
