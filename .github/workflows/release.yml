@@ -1,0 +1,32 @@
+name: "Release"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dfx
+        run: |
+          wget --output-document install-dfx.sh "https://raw.githubusercontent.com/dfinity/sdk/master/public/install-dfxvm.sh"
+          DFX_VERSION=${DFX_VERSION:=0.15.2} DFXVM_INIT_YES=true bash install-dfx.sh
+          rm install-dfx.sh
+          echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
+          source "$HOME/.local/share/dfx/env"
+          dfx cache install
+
+      - name: Build canister
+        run: |
+          dfx build --network ic
+
+      - name: Release
+        uses: "softprops/action-gh-release@v1"
+        with:
+          files: .dfx/ic/canisters/canister_history/canister_history.wasm
